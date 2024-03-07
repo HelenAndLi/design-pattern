@@ -1,9 +1,6 @@
 package prototype;
 
-import java.io.Closeable;
-import java.io.IOException;
-
-public class Resume implements Cloneable{
+public class Resume implements Cloneable {
 
     private String name;
 
@@ -11,7 +8,9 @@ public class Resume implements Cloneable{
 
     private String age;
 
-    private String workExperience;
+    private WorkExperienceDeep workExperience;
+
+    private EducationShallow educationShallow;
 
     public Resume(String name){
         this.name = name;
@@ -22,17 +21,30 @@ public class Resume implements Cloneable{
         this.age = age;
     }
 
-    public void setWorkExperience(String workExperience){
-        this.workExperience = workExperience;
+    public void setWorkExperience(WorkExperienceDeep workExperience) throws CloneNotSupportedException{
+        this.workExperience = workExperience.clone();
+    }
+
+    public void setEducationShallow(EducationShallow educationShallow) throws CloneNotSupportedException{
+        this.educationShallow = educationShallow;
+    }
+
+    public WorkExperienceDeep getWorkExperience(){
+        return this.workExperience;
+    }
+    public EducationShallow getEducationShallow(){
+        return this.educationShallow;
     }
 
     public void display(){
-        System.out.println("姓名：" + this.name + "，性别：" + this.gender + "，年龄：" + this.age);
-        System.out.println("工作经历：" + this.workExperience);
+        System.out.println("基本信息 " +  this.name + " " + this.gender + " " + this.age);
+        System.out.println("教育经历（浅克隆） " + this.educationShallow);
+        System.out.println("工作经历（深克隆） " + this.workExperience);
     }
 
-    public Object clone(){
-        return this.clone();
+    @Override
+    public Resume clone() throws CloneNotSupportedException{
+        return (Resume) super.clone();
     }
 
 }
